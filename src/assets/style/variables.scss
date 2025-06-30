@@ -5,14 +5,9 @@ $bg-light: #FFFFFF;
 $bg-dark: #12002b;
 
 //// Breakpoints
-@mixin respond-to($widescreen) {
-  @media (min-width: 1280px) {
-    @content;
-  }
-}
 
 @mixin respond-to($desktop) {
-  @media (min-width: 980px){
+  @media (min-width: 920px){
     @content;
   }
 }

@@ -1,10 +1,19 @@
+import Hero from "../../components/hero/hero";
+import Features from "../../components/features/features";
+
 import Styles from "./home.module.scss";
 
 function Home() {
 	return (
-		<section className={Styles.homepage}>
-			<h1>Home</h1>
-		</section>
+		<main className={Styles.homepage}>
+			<Hero
+				title="Promoted Content"
+				subtitles={["No fees.", "No minimum deposit.", "High interest rates"]} // Must be an array !IMPORTANT
+				text="Open a savings account with Argent Bank today!"
+			/>
+
+			<Features />
+		</main>
 	);
 }
 
