@@ -1,0 +1,24 @@
+@use '../../assets/style/variables';
+
+.nav {
+  &_container {
+    display:  flex;
+    flex-direction: row;
+
+  }
+  
+  &_item {
+    font-weight: bold;
+    color: variables.$primary-color;
+    text-decoration: none;
+    margin-right: 0.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+    
+    i {
+      margin-right: 0.2rem;
+    }
+  }
+}

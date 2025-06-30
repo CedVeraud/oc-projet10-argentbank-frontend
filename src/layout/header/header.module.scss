@@ -1,0 +1,15 @@
+@use '../../assets/style/variables';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+}
+
+.logo {
+  &_img {
+    max-width: 100%;
+    width: 200px;
+  }
+}
