@@ -1,0 +1,52 @@
+@use '../../assets/style/variables';
+
+.errorpage{
+    font-size: 0.9em;
+    background-image: url("../../assets/img/bank-tree.webp");
+    background-position: center bottom;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 2rem;
+
+      @include variables.respond-to('desktop') {
+        font-size: 1.2em;
+      }
+
+
+    &_content{
+      position: relative;
+      width: 80%;
+      background: rgba(255, 255, 255, .9);
+      padding: 2rem;
+      margin: 40px auto;
+
+      @include variables.respond-to('desktop') {
+        width: 50%;
+      }
+    }
+
+    &_title {
+      font-size: 5em;
+      color: variables.$secondary-color;
+      margin: 0;
+      padding: 0 20px;
+    }
+
+    &_message{
+      font-size: 1.2em;
+      padding: 0 20px 20px;
+    }
+
+    &_link{
+      font-weight: bold;
+      color: variables.$primary-color;
+      text-decoration: none;
+      padding: 0 20px 100px;
+
+        &:hover {
+          text-decoration: underline;
+        }
+    }
+
+}

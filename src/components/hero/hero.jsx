@@ -1,7 +1,5 @@
 import Styles from "./hero.module.scss";
 
-
-
 function Hero({ title, subtitles, text }) {
   return (
     <section className={Styles.hero}>

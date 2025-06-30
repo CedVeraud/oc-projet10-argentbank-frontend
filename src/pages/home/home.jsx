@@ -8,7 +8,7 @@ function Home() {
 		<main className={Styles.homepage}>
 			<Hero
 				title="Promoted Content"
-				subtitles={["No fees.", "No minimum deposit.", "High interest rates"]} // Must be an array !IMPORTANT
+				subtitles={["No fees.", "No minimum deposit.", "High interest rates"]}
 				text="Open a savings account with Argent Bank today!"
 			/>
 
