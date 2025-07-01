@@ -3,11 +3,11 @@ import Footer from "./layout/footer/footer";
 import Header from "./layout/header/header";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./pages/home/home.jsx";
-import ErrorPage from "./pages/error/error.jsx";
-import Login from "./pages/login/login.jsx";
-import Profile from "./pages/profile/profile.jsx";
-// import PrivateRoute from "./components/PrivateRoute";
+import Home from "./pages/home/home";
+import ErrorPage from "./pages/error/error";
+import Login from "./pages/login/login";
+import Profile from "./pages/profile/profile";
+import Counter from "./redux/tutorial/counter/counter"
 
 function App() {
   return (
@@ -19,6 +19,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<ErrorPage />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/counter" element={<Counter />} />
         </Routes>
         <Footer />
       </Router>

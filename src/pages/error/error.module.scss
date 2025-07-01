@@ -18,7 +18,7 @@
       position: relative;
       width: 80%;
       background: rgba(255, 255, 255, .9);
-      padding: 2rem;
+      padding: 4rem 2rem 2rem;
       margin: 40px auto;
 
       @include variables.respond-to('desktop') {
@@ -31,6 +31,10 @@
       color: variables.$secondary-color;
       margin: 0;
       padding: 0 20px;
+
+      span {
+      color: variables.$logo-color-dark;
+      }
     }
 
     &_message{
