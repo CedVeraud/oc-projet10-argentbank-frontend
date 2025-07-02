@@ -1,0 +1,42 @@
+@use '../../../assets/style/variables';
+
+.signin{
+  &_form{
+    margin: 20px;
+  }
+  
+  &_button {
+    display: block;
+    width: 100%;
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-color: variables.$secondary-color;
+    background-color: variables.$secondary-color;
+    color: #fff;
+  }
+}
+
+.input{
+  &_remember {
+    display: flex;
+    label {
+      margin-left: 0.25rem;
+    }
+  }
+
+  &_wrapper {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-bottom: 1rem;
+    label {
+      font-weight: bold;
+    }
+    input {
+      padding: 5px;
+      font-size: 1.2rem;
+    }
+  }
+}

@@ -1,1 +1,20 @@
 @use '../../assets/style/variables';
+
+.loginpage {
+  background-color: variables.$bg-dark;
+  padding: .5rem 2rem 10rem;
+}
+.signin {    
+  &_content {
+    box-sizing: border-box;
+    background-color: white;
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 3rem;
+    padding: 2rem;
+  }
+
+  &_icon {
+    font-size: 14px;
+  }
+}

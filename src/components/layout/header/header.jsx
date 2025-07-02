@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom'
-import NavBar from '../../components/navbar/navbar'
+import NavBar from '../../navbar/navbar'
 
-import logo from '../../assets/img/argentBankLogo.webp'
+import logo from '../../../assets/img/argentBankLogo.webp'
 import Styles from "./header.module.scss";
 
 function Header() {

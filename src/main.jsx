@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App'
-import { store } from './store/store'
+import { store } from './utils/store'
 import { Provider } from 'react-redux'
 
 const container = document.getElementById('root')
@@ -13,7 +13,7 @@ if (container) {
     <StrictMode>
       <Provider store={store}>
         <App />
-      </Provider>,
+      </Provider>
     </StrictMode>
   )
 } else {
