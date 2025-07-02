@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/home/home";
 import ErrorPage from "./pages/error/error";
 import Login from "./pages/login/login";
+import PrivateRoute from "./components/privateroute/tokenisrequired";
 import Profile from "./pages/profile/profile";
 import Counter from "./redux/tutorial/counter/counter"
 
@@ -18,7 +19,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/*" element={<ErrorPage />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile"
+            element={
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
+            }
+          />
           <Route path="/counter" element={<Counter />} />
         </Routes>
         <Footer />
