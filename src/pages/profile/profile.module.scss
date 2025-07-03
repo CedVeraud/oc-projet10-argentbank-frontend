@@ -1,0 +1,33 @@
+@use '../../assets/style/variables';
+
+.user_page{
+  background-color: variables.$bg-dark;
+  padding: .5rem 2rem 10rem;
+}
+
+.header {
+  color: #fff;
+  margin-bottom: 2rem;
+}
+
+.edit{
+  &_button {
+    border-color: variables.$secondary-color;
+    background-color: variables.$secondary-color;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px;
+  }
+
+  &_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 100%;
+
+    h2{
+        margin-bottom: 0;
+    }
+  }
+}

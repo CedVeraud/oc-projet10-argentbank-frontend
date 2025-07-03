@@ -1,0 +1,64 @@
+@use '../../assets/style/variables';
+
+.account {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid black;
+  background-color: #fff;
+  width: 80%;
+  margin: 0 auto;
+  flex-direction: column;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  text-align: left;
+  margin-bottom: 2rem;
+
+  @include variables.respond-to('desktop') {
+    flex-direction: row;
+  }
+
+  &_wrapper {
+    width: 100%;
+    flex: 0;
+
+    .cta{
+      @include variables.respond-to('desktop') {
+        flex: 0;
+      }
+    }
+  }
+
+  &_title {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+    font-weight: normal;
+  }
+
+  &_amount {
+    margin: 0;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+
+  &_description {
+    margin: 0;
+  }
+}
+
+.transaction_button {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-color: variables.$secondary-color;
+  background-color: variables.$secondary-color;
+  color: #fff;
+
+  @include variables.respond-to('desktop') {
+    width: 200px;
+  }
+}

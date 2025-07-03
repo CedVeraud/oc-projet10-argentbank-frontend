@@ -26,7 +26,7 @@ export const profile = () => async (dispatch, getState) => {
 
   try {
     const data = await apiFetch("http://localhost:3001/api/v1/user/profile", {
-      method: "POST",
+      method: "GET",
     }, token);
 
     dispatch(

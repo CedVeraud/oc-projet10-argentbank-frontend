@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Argent Bank Checking (x8349)",
+    "solde": "$2,082.79",
+    "description": "Available Balance",
+    "text": "View transactions"
+  },
+  {
+    "title": "Argent Bank Savings (x6712)",
+    "solde": "$10,928.42",
+    "description": "Available Balance",
+    "text": "View transactions"
+  },
+  {
+    "title": "Argent Bank Credit Card (x8349)",
+    "solde": "$184.30",
+    "description": "Current Balance",
+    "text": "View transactions"
+  }
+]

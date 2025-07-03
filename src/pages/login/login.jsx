@@ -4,7 +4,7 @@ import Styles from "./login.module.scss";
 
 function Login() {
   return (
-    <main className={Styles.loginpage}>
+    <main className={Styles.login_page}>
       <section className={Styles.signin_content}>
         <div className={Styles.signin_icon}>
           <i className={"fa fa-user-circle"}></i>
