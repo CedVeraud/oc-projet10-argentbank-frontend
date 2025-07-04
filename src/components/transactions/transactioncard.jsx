@@ -12,7 +12,7 @@ function TransactionCard({ transactions }) {
               {transaction.description}
             </p>
           </div>
-          <div className={Styles.account_wrapper & Styles.cta}>
+          <div className={Styles.account_wrapper}>
             <button className={Styles.transaction_button}>{transaction.text}</button>
           </div>
         </section>

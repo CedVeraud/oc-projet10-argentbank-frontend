@@ -12,6 +12,12 @@ $bg-dark: #12002b;
 
 //// Breakpoints
 
+@mixin respond-to($pad) {
+  @media (min-width: 720px){
+    @content;
+  }
+}
+
 @mixin respond-to($desktop) {
   @media (min-width: 920px){
     @content;

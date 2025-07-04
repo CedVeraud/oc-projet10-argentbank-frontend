@@ -6,6 +6,10 @@ const initialState = {
   error: null,
   isAuthenticated: false,
   email: null,
+  firstName: null,
+  lastName: null,
+  userName: null,
+  showForm: false,
 };
 
 const authSlice = createSlice({
@@ -18,6 +22,9 @@ const authSlice = createSlice({
       state.error = null;
       state.isAuthenticated = true;
       state.email = action.payload.email;
+      state.firstName = action.payload.firstName;
+      state.lastName = action.payload.lastName;
+      state.userName = action.payload.userName;
 
       if (!localStorage.getItem("token")) {
         localStorage.setItem("token", action.payload.token);
@@ -47,6 +54,18 @@ const authSlice = createSlice({
         state.token = null;
       }
     },
+
+    showEditUserName: (state) => {
+      state.showForm = true;
+    },
+
+    hideEditUserName: (state) => {
+      state.showForm = false;
+    },
+
+    editSuccess: (state, action) => {
+      state.userName = action.payload.userName;
+    },
   },
 });
 
@@ -56,6 +75,9 @@ export const {
   logout,
   checkLocalStorageToken,
   profileSuccess,
+  showEditUserName,
+  hideEditUserName,
+  editSuccess,
 } = authSlice.actions;
 
 export default authSlice.reducer;

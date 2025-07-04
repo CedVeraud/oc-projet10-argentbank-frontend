@@ -14,7 +14,7 @@
   text-align: left;
   margin-bottom: 2rem;
 
-  @include variables.respond-to('desktop') {
+  @include variables.respond-to('pad') {
     flex-direction: row;
   }
 
@@ -22,10 +22,8 @@
     width: 100%;
     flex: 0;
 
-    .cta{
-      @include variables.respond-to('desktop') {
-        flex: 0;
-      }
+    @include variables.respond-to('pad') {
+      flex: 0;
     }
   }
 
@@ -58,7 +56,7 @@
   background-color: variables.$secondary-color;
   color: #fff;
 
-  @include variables.respond-to('desktop') {
+  @include variables.respond-to('pad') {
     width: 200px;
   }
 }

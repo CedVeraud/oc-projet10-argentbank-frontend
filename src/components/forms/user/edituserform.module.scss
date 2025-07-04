@@ -1,0 +1,50 @@
+@use '../../../assets/style/variables';
+
+
+.form_edit{
+  &_content {
+    width: 100%;
+    max-width: 250px;
+    margin-top: 20px;
+  }
+
+  &_button {
+    padding: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background-color: variables.$secondary-color;
+    color: #fff;
+    cursor: pointer;  
+    width: 100%;
+    margin-top: 1rem;
+    border: 0;
+
+    &_container {
+    display: flex;
+    gap: 10px;
+  }
+  }
+}
+
+.input_edit_wrapper {
+  display: flex;
+  text-align: left;
+  margin-bottom: 1rem;
+  max-width: 100%;
+  align-items: center;
+
+  label {
+    font-weight: 700;
+    white-space: nowrap;
+    margin-right: 5px;
+  }
+
+  input {
+    width: 100%;
+  }
+  
+  .blocked {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+}
