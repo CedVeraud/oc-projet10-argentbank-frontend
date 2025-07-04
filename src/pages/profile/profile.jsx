@@ -1,6 +1,6 @@
 import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { showEditUserName } from "../../redux/login/authSlice";
+import { showEditUserName } from "../../redux/authSlice";
 
 import TransactionsData from "../../data/transactions.json";
 import TransactionCard from "../../components/transactions/transactionCard";

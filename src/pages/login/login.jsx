@@ -1,4 +1,4 @@
-import SignInForm from "../../components/forms/signin/signinform";
+import SignInForm from "../../components/forms/signin/signinForm";
 
 import Styles from "./login.module.scss";
 

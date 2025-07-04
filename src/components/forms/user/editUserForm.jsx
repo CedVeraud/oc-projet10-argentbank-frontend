@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-import { hideEditUserName } from "../../../redux/login/authSlice";
-import { edit } from "../../../redux/login/authActions";
+import { hideEditUserName } from "../../../redux/authSlice";
+import { edit } from "../../../redux/authActions";
 
 import Styles from "./edituserform.module.scss";
 
@@ -28,9 +28,9 @@ function EditForm() {
   };
 
   return (
-    <div className={Styles.form_edit_content}>
+    <div className={Styles.formedit_content}>
       <form>
-        <div className={Styles.input_edit_wrapper}>
+        <div className={Styles.formedit_input_wrapper}>
           <label htmlFor="username">User name:</label>
           <input
             type="text"
@@ -39,7 +39,7 @@ function EditForm() {
             onChange={(e) => setUsername(e.target.value)}
           />
         </div>
-        <div className={Styles.input_edit_wrapper}>
+        <div className={Styles.formedit_input_wrapper}>
           <label htmlFor="firstname">First name:</label>
           <input
             className={Styles.blocked}
@@ -49,7 +49,7 @@ function EditForm() {
             readOnly
           />
         </div>
-        <div className={Styles.input_edit_wrapper}>
+        <div className={Styles.formedit_input_wrapper}>
           <label htmlFor="lastname">Last name:</label>
           <input
             className={Styles.blocked}
@@ -59,15 +59,15 @@ function EditForm() {
             readOnly
           />
         </div>
-        <div className={Styles.button_container}>
+        <div className={Styles.formedit_button_container}>
           <button
             onClick={handleSaveClick}
-            className={Styles.form_edit_button}
+            className={Styles.formedit_button_save}
             type="text"
           >
             Save
           </button>
-          <button onClick={handleCancelClick} className={Styles.form_edit_button}>
+          <button onClick={handleCancelClick} className={Styles.formedit_button_cancel}>
             Cancel
           </button>
         </div>
