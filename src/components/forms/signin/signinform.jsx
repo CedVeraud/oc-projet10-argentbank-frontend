@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { login, profile } from "../../../redux/authActions";
 import { useNavigate } from "react-router-dom";
 
-
 import Styles from "./signinform.module.scss";
 
 function LoginForm() {
-  const [username, setUsername] = useState("");
+  const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(true);
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ function LoginForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ username, password }));
+    dispatch(login({ email, password, rememberMe }));
   };
 
   useEffect(() => {
@@ -30,12 +30,12 @@ function LoginForm() {
     <>
       <form onSubmit={handleSubmit} className={Styles.signin_form}>
         <div className={Styles.input_wrapper}>
-          <label htmlFor="username">Username</label>
+          <label htmlFor="email">Username</label>
           <input
             type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            id="email"
+            value={email}
+            onChange={(e) => setUserEmail(e.target.value)}
           />
         </div>
         <div className={Styles.input_wrapper}>
@@ -48,14 +48,19 @@ function LoginForm() {
           />
         </div>
         <div className={Styles.input_remember}>
-          <input type="checkbox" id="remember-me" />
+          <input
+            type="checkbox"
+            id="remember-me"
+            checked={rememberMe}
+            onChange={() => setRememberMe(!rememberMe)}
+          />
           <label htmlFor="remember-me">Remember me</label>
         </div>
         <button type="submit" className={Styles.signin_button}>
           Sign In
         </button>
       </form>
-      {auth.error && <p>{auth.error}</p>}
+      {auth.error && <p className={Styles.error_message}>{auth.error}</p>}
     </>
   );
 }

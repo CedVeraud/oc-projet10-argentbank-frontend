@@ -16,7 +16,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-
     loginSuccess: (state, action) => {
       state.user = action.payload.user;
       state.error = null;
@@ -25,11 +24,17 @@ const authSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.userName = action.payload.userName;
-
-      if (!localStorage.getItem("token")) {
-        localStorage.setItem("token", action.payload.token);
-        state.token = action.payload.token;
+      const { rememberMe, token } = action.payload;
+      if (rememberMe) {
+        localStorage.setItem("token", token);
+        localStorage.setItem("rememberMe", "true");
       }
+
+      if (action.payload.rememberMe) {
+        localStorage.setItem("token", action.payload.token);
+        localStorage.setItem("rememberMe", "true");
+      }
+      state.token = action.payload.token;
     },
 
     loginFailure: (state, action) => {
@@ -45,16 +50,19 @@ const authSlice = createSlice({
     },
 
     checkLocalStorageToken: (state) => {
+      const rememberMe = localStorage.getItem("rememberMe") === "true";
       const token = localStorage.getItem("token");
-      if (token) {
-        state.isAuthenticated = true;
+
+      if (rememberMe && token) {
         state.token = token;
+        state.isAuthenticated = true;
       } else {
-        state.isAuthenticated = false;
+        localStorage.removeItem("token");
+        localStorage.removeItem("rememberMe");
         state.token = null;
+        state.isAuthenticated = false;
       }
     },
-
     showEditUserName: (state) => {
       state.showForm = true;
     },
@@ -74,7 +82,6 @@ export const {
   loginFailure,
   logout,
   checkLocalStorageToken,
-  profileSuccess,
   showEditUserName,
   hideEditUserName,
   editSuccess,

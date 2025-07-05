@@ -63,7 +63,7 @@ function EditForm() {
           <button
             onClick={handleSaveClick}
             className={Styles.formedit_button_save}
-            type="text"
+            type="submit"
           >
             Save
           </button>

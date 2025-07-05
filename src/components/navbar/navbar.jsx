@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout, checkLocalStorageToken } from "../../redux/authSlice";
 import { useEffect } from "react";
@@ -24,12 +24,11 @@ function NavBar() {
         <>
           <NavLink className={Styles.nav_item} to="/profile">
             <i className="fa fa-user-circle"></i>
-
-
             {auth.userName?.split(' ')[0]}
           </NavLink>
           <NavLink className={Styles.nav_item} onClick={handleLogout} to="/">
-            <i className="fa fa-sign-out"></i> Sign Out
+            <i className="fa fa-sign-out"></i>
+            Sign Out
           </NavLink>
         </>
       ) : (

@@ -1,4 +1,3 @@
-import { Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { showEditUserName } from "../../redux/authSlice";
 
@@ -21,9 +20,7 @@ function Profile() {
 
   return (
     <>
-      {!auth.isAuthenticated ? (
-        <Navigate to="/login" />
-      ) : (
+      {
         <main className={Styles.user_page}>
           <div className={Styles.header}>
             {showForm ? (
@@ -46,7 +43,7 @@ function Profile() {
           </div>
           <TransactionCard transactions={transactions} />
         </main>
-      )}
+      }
     </>
   );
 }

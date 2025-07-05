@@ -1,4 +1,4 @@
-@use 'variables';
+@use './variables';
 
 /***  GLOBAL RULES  ***/
 html {
@@ -20,6 +20,9 @@ body {
   flex: 1;
 }
 
+.bg-light {
+  background-color: variables.$bg-light;
+}
 .bg-dark {
   background-color: variables.$bg-dark;
 }
@@ -36,4 +39,9 @@ body {
   position: absolute !important;
   width: 1px !important;
   white-space: nowrap !important; /* 3 */
+}
+
+.error_message{
+  color: red;
+  font-weight: bold;
 }

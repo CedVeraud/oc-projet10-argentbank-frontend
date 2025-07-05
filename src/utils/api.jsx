@@ -7,7 +7,7 @@ export async function apiFetch(url, options = {}, token = null) {
 
   if (token) {
     headers.Authorization = `Bearer ${token}`;
-  }
+  };
 
   const res = await fetch(url, {
     ...options,
@@ -15,10 +15,13 @@ export async function apiFetch(url, options = {}, token = null) {
   });
 
   const data = await res.json().catch(() => ({}));
-
   if (!res.ok) {
-    throw new Error(data.message || "Erreur API");
-  }
+    const errors = data.message
+      ? `${data.message}`
+      : `${res.status} ${res.statusText}`;
+
+    throw new Error(errors);
+  };
 
   return data;
 }

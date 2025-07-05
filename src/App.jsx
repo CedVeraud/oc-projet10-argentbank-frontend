@@ -3,10 +3,11 @@ import Footer from "./components/layout/footer/footer";
 import Header from "./components/layout/header/header";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import PrivateRoute from "./utils/privateroute/tokenIsRequired";
+
 import Home from "./pages/home/home";
 import ErrorPage from "./pages/error/error";
 import Login from "./pages/login/login";
-// import PrivateRoute from "./components/privateroute/tokenisrequired";
 import Profile from "./pages/profile/profile";
 
 function App() {
@@ -20,7 +21,9 @@ function App() {
           <Route path="/*" element={<ErrorPage />} />
           <Route path="/profile"
             element={
-              <Profile />
+              <PrivateRoute>
+                <Profile />
+              </PrivateRoute>
             }
           />
         </Routes>
