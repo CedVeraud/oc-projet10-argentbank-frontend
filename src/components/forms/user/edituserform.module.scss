@@ -11,7 +11,7 @@
   &_input_wrapper {
     display: flex;
     text-align: left;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
     max-width: 100%;
     align-items: center;
 
@@ -53,4 +53,11 @@
       background-color: variables.$logo-color-dark;
     }
   }
+}
+
+.error_message{
+  text-align: right;
+  margin: 0.2rem 0 0 0;
+  color: red;
+  font-weight: bold;
 }
