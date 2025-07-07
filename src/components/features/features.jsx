@@ -10,8 +10,14 @@ function Features() {
 			<h2 className="sr-only">Features</h2>
 			{featuresData.map((feature, index) => (
 				<div className={Styles.features_item} key={index}>
-					<img src={feature.icon} alt={feature.alt} className={Styles.features_icon} />
-					<h3 className={Styles.features_title}>{feature.title}</h3>
+					<img src={feature.icon}
+						alt={feature.alt}
+						className={Styles.features_icon}
+						loading="lazy"
+					/>
+					<h3 className={Styles.features_title}>
+						{feature.title}
+					</h3>
 					<p>{feature.description}</p>
 				</div>
 			))}
