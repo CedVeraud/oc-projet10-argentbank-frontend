@@ -30,16 +30,11 @@ const authSlice = createSlice({
       state.firstName = action.payload.firstName;
       state.lastName = action.payload.lastName;
       state.userName = action.payload.userName;
-      // gestion de la checkbox 'Remember me' (= true par défaut)
+
+      // Stocke le token uniquement s’il n’est pas déjà présent et que rememberMe est 'true'
       const { rememberMe, token } = action.payload;
       if (rememberMe) {
         localStorage.setItem("token", token);
-        localStorage.setItem("rememberMe", "true");
-      }
-
-      // Stocke le token uniquement s’il n’est pas déjà présent et que remember me est coché
-      if (action.payload.rememberMe) {
-        localStorage.setItem("token", action.payload.token);
         localStorage.setItem("rememberMe", "true");
       }
       state.token = action.payload.token;
