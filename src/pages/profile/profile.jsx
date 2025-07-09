@@ -32,7 +32,7 @@ function Profile() {
             <h1 tabIndex="-1">
               Welcome back
               <br />
-              {auth.userName || "User"}
+              {auth.userName || "Loading..."}
             </h1>
             <button onClick={handleSubmit} className={Styles.edit_button}>
               Edit Name

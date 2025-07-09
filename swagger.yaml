@@ -103,24 +103,52 @@ paths:
           description: Internal Server Error
 
   #//*** ***// NEW ENDPOINTS //*** ***//#
-  user/transactions:
+  /user/transactions:
     get:
+      security:
+        - Bearer: []
       tags:
-        - Transactions
-      summary: Get all transactions of the current month
-      description: API for retrieving all transactions of the current month
+        - Transactions Module
+      summary: Get all transactions grouped by account
+      description: Retrieve all transactions for the current month, grouped by account
       produces:
         - application/json
       responses:
         '200':
           description: Transactions retrieved successfully
           schema:
-            type: array
-            items:
-              $ref: '#/definitions/Transaction'
+            $ref: '#/definitions/TransactionsGroupedResponse'
+        '401':
+          description: Unauthorized
         '500':
           description: Internal Server Error
-#//*** END // NEW ENDPOINTS // END ***//#
+  /user/transaction/{id}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Get transaction details
+      description: Retrieve detailed information about a specific transaction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Transaction details retrieved
+          schema:
+            $ref: '#/definitions/Transaction'
+        '404':
+          description: Transaction not found
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
 
 securityDefinitions:
   Bearer:
@@ -180,6 +208,29 @@ definitions:
         type: string
 
   #//*** ***// NEW DEFINITIONS //*** ***//#
+  TransactionsGroupedResponse:
+    type: object
+    properties:
+      status:
+        type: integer
+      message:
+        type: string
+      body:
+        type: object
+        properties:
+          accounts:
+            type: array
+            items:
+              type: object
+              properties:
+                accountId:
+                  type: string
+                accountName:
+                  type: string
+                transactions:
+                  type: array
+                  items:
+                    $ref: '#/definitions/Transaction'
   Transaction:
     type: object
     properties:
@@ -187,11 +238,17 @@ definitions:
         type: string
       date:
         type: string
-        format: date-time
+        format: date
       description:
         type: string
       amount:
         type: number
       balance:
         type: number
-#//*** END // NEW DEFINITIONS // END ***//#
+      type:
+        type: string
+        enum: [credit, debit]
+      category:
+        type: string
+      note:
+        type: string

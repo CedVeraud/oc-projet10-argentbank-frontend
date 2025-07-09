@@ -32,7 +32,7 @@ function NavBar() {
             aria-label="Profile"
           >
             <i className="fa fa-user-circle"></i>
-            {auth.userName?.split(' ')[0] || 'User'}
+            {auth.userName?.split(' ')[0] || "Loading..."}
           </NavLink>
           <NavLink className={Styles.nav_item}
             onClick={handleLogout}
