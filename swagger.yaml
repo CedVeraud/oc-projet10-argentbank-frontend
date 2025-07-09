@@ -149,6 +149,66 @@ paths:
           description: Unauthorized
         '500':
           description: Internal Server Error
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update transaction
+      description: Modify details of a transaction
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - in: body
+          name: body
+          required: true
+          description: Transaction update payload
+          schema:
+            $ref: '#/definitions/TransactionUpdate'
+      responses:
+        '200':
+          description: Transaction updated successfully
+        '400':
+          description: Invalid data
+        '404':
+          description: Transaction not found
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+    patch:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Patch transaction information
+      description: Add or remove specific optional information (e.g. note or category)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+          description: Transaction ID
+        - in: body
+          name: body
+          required: true
+          description: Fields to update or delete
+          schema:
+            $ref: '#/definitions/TransactionPatch'
+      responses:
+        '200':
+          description: Transaction patched successfully
+        '400':
+          description: Invalid patch data
+        '404':
+          description: Transaction not found
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
 
 securityDefinitions:
   Bearer:
@@ -238,7 +298,8 @@ definitions:
         type: string
       date:
         type: string
-        format: date
+        pattern: '^\d{2}/\d{2}/\d{2}$'
+        description: Date au format JJ/MM/AA
       description:
         type: string
       amount:
@@ -247,8 +308,34 @@ definitions:
         type: number
       type:
         type: string
-        enum: [credit, debit]
+        enum: [Electronic, Wire, Check, Card, Cash]
+        description: Type de transaction
       category:
         type: string
+        enum: [Food, Rent, Transport, Utilities, Others]
+        description: Catégorie définissable par l’utilisateur
       note:
         type: string
+        maxLength: 256
+        description: Note facultative ajoutée par l’utilisateur
+  TransactionUpdate:
+    type: object
+    properties:
+      description:
+        type: string
+      category:
+        type: string
+        enum: [Food, Rent, Transport, Utilities, Others]
+      note:
+        type: string
+        maxLength: 256
+  TransactionPatch:
+    type: object
+    description: At least one of the following fields is required
+    properties:
+      category:
+        type: string
+        enum: [Food, Rent, Transport, Utilities, Others]
+      note:
+        type: string
+        maxLength: 256
