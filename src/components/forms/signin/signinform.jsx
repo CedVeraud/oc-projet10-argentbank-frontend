@@ -2,19 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { login, profile } from "../../../redux/authActions";
+import { login, profile } from "../../../store/auth/authActions";
 
-import Styles from "./signinform.module.scss";
+import Styles from "./SignInForm.module.scss";
 
 function LoginForm() {
   // États locaux pour les champs du formulaire
   const [email, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [rememberMe, setRememberMe] = useState(true); // Coche "Remember me" activée par défaut
+  const [rememberMe, setRememberMe] = useState(false); // "Remember me" décoché par défaut
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // Accès à l’état global d’authentification (token, erreur, etc.)
+  // Accès à l’état global d’authentification
   const auth = useSelector((state) => state.auth);
 
   // Soumission du formulaire : déclenche la tentative de login
@@ -23,11 +23,11 @@ function LoginForm() {
     dispatch(login({ email, password, rememberMe }));
   };
 
-  // Effet déclenché quand le token est présent et sans erreur → redirection + chargement du profil
+  // Effet déclenché quand le token est présent et sans erreur
   useEffect(() => {
     if (auth.token && !auth.error) {
-      navigate("/profile"); // redirection après connexion réussie
       dispatch(profile());  // chargement des infos utilisateur
+      navigate("/profile"); // redirection après connexion réussie
     }
   }, [auth, dispatch, navigate]);
 
@@ -37,7 +37,7 @@ function LoginForm() {
         <div className={Styles.input_wrapper}>
           <label htmlFor="email">E-mail</label>
           <input
-            type="text"
+            type="email"
             id="email"
             value={email}
             onChange={(e) => setUserEmail(e.target.value)}

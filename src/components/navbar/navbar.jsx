@@ -2,18 +2,18 @@ import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-import { logout, checkLocalStorageToken } from "../../redux/authSlice";
+import { logout, checkStoredToken } from "../../store/auth/authSlice";
 
-import Styles from "./navbar.module.scss";
+import Styles from "./Navbar.module.scss";
 
 function NavBar() {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth); // Accès à l’état d’authentification dans le store
   const isAuthenticated = auth.isAuthenticated;
 
-  // Vérifie si un token existe dans le localStorage au montage du composant
+  // Vérifie si un token existe dans le Storage au montage du composant
   useEffect(() => {
-    dispatch(checkLocalStorageToken());
+    dispatch(checkStoredToken());
   }, [dispatch]);
 
   // Fonction logout appelée au clic sur "Sign Out"

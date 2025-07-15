@@ -65,11 +65,9 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
-      #produces:
-      # - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -81,7 +79,7 @@ paths:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
+      summary: Update user profile
       description: API for updating a user profile
       parameters:
         - in: body
@@ -94,7 +92,7 @@ paths:
         - application/json
       responses:
         '200':
-          description: User profile retrieved successully
+          description: User profile updated successfully
           schema:
             $ref: '#/definitions/ApiResponse'
         '400':
@@ -102,7 +100,6 @@ paths:
         '500':
           description: Internal Server Error
 
-  #//*** ***// NEW ENDPOINTS //*** ***//#
   /user/transactions:
     get:
       security:
@@ -122,7 +119,8 @@ paths:
           description: Unauthorized
         '500':
           description: Internal Server Error
-  /user/transaction/{id}:
+
+  /user/transactions/{id}:
     get:
       security:
         - Bearer: []
@@ -149,43 +147,13 @@ paths:
           description: Unauthorized
         '500':
           description: Internal Server Error
-    put:
-      security:
-        - Bearer: []
-      tags:
-        - Transactions Module
-      summary: Update transaction
-      description: Modify details of a transaction
-      parameters:
-        - name: id
-          in: path
-          required: true
-          type: string
-          description: Transaction ID
-        - in: body
-          name: body
-          required: true
-          description: Transaction update payload
-          schema:
-            $ref: '#/definitions/TransactionUpdate'
-      responses:
-        '200':
-          description: Transaction updated successfully
-        '400':
-          description: Invalid data
-        '404':
-          description: Transaction not found
-        '401':
-          description: Unauthorized
-        '500':
-          description: Internal Server Error
     patch:
       security:
         - Bearer: []
       tags:
         - Transactions Module
       summary: Patch transaction information
-      description: Add or remove specific optional information (e.g. note or category)
+      description: Add, modify or remove specific optional information (e.g. note or category)
       parameters:
         - name: id
           in: path
@@ -267,30 +235,21 @@ definitions:
       userName:
         type: string
 
-  #//*** ***// NEW DEFINITIONS //*** ***//#
   TransactionsGroupedResponse:
-    type: object
-    properties:
-      status:
-        type: integer
-      message:
-        type: string
-      body:
-        type: object
-        properties:
-          accounts:
-            type: array
-            items:
-              type: object
-              properties:
-                accountId:
-                  type: string
-                accountName:
-                  type: string
-                transactions:
-                  type: array
-                  items:
-                    $ref: '#/definitions/Transaction'
+    type: array
+    description: List of accounts with grouped transactions
+    items:
+      type: object
+      properties:
+        accountId:
+          type: string
+        accountName:
+          type: string
+        transactions:
+          type: array
+          items:
+            $ref: '#/definitions/Transaction'
+
   Transaction:
     type: object
     properties:
@@ -299,7 +258,7 @@ definitions:
       date:
         type: string
         pattern: '^\d{2}/\d{2}/\d{2}$'
-        description: Date au format JJ/MM/AA
+        description: Date in DD/MM/YY format
       description:
         type: string
       amount:
@@ -309,26 +268,16 @@ definitions:
       type:
         type: string
         enum: [Electronic, Wire, Check, Card, Cash]
-        description: Type de transaction
+        description: Type of transaction
       category:
         type: string
         enum: [Food, Rent, Transport, Utilities, Others]
-        description: Catégorie définissable par l’utilisateur
+        description: User-defined category
       note:
         type: string
         maxLength: 256
-        description: Note facultative ajoutée par l’utilisateur
-  TransactionUpdate:
-    type: object
-    properties:
-      description:
-        type: string
-      category:
-        type: string
-        enum: [Food, Rent, Transport, Utilities, Others]
-      note:
-        type: string
-        maxLength: 256
+        description: Optional note added by the user
+
   TransactionPatch:
     type: object
     description: At least one of the following fields is required

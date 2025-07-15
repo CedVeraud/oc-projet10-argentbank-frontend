@@ -23,10 +23,14 @@
 
     input {
       width: 100%;
+      border: 0;
+      border-radius: 3px;
+      padding: 4px;
     }
     
     .blocked {
       background-color: #ccc;
+      color: #777;
       cursor: not-allowed;
     }
   }
@@ -47,10 +51,7 @@
       width: 100%;
       margin-top: 1rem;
       border: 0;
-    }
-
-    &_cancel {
-      background-color: variables.$logo-color-dark;
+      border-radius: 3px;
     }
   }
 }

@@ -1,6 +1,6 @@
 import FeaturesData from "../../data/features.json";
 
-import Styles from "./features.module.scss";
+import Styles from "./Features.module.scss";
 
 function Features() {
 	const featuresData = FeaturesData;

@@ -6,9 +6,9 @@ import { createSlice } from "@reduxjs/toolkit";
 // État initial du slice auth
 const initialState = {
   user: null,
-  token: localStorage.getItem("token") || null, // Récupére le token stocké localement au chargement
+  token: localStorage.getItem("token") || sessionStorage.getItem("token") || null, // Récupère le token stocké (local ou session)
   error: null, // Stocke les erreurs d'authentification éventuelles
-  isAuthenticated: false, // Indique si l'utilisateur est connecté
+  isAuthenticated: !!(localStorage.getItem("token") || sessionStorage.getItem("token")), // Déduit l'authentification
   email: null,
   firstName: null,
   lastName: null,
@@ -23,21 +23,23 @@ const authSlice = createSlice({
   reducers: {
     // Connexion réussie : mise à jour du state avec les infos utilisateur
     loginSuccess: (state, action) => {
-      state.user = action.payload.user;
+      const { token, rememberMe, email, firstName, lastName, userName, user } = action.payload;
+
+      state.user = user;
+      state.token = token;
       state.error = null;
       state.isAuthenticated = true;
-      state.email = action.payload.email;
-      state.firstName = action.payload.firstName;
-      state.lastName = action.payload.lastName;
-      state.userName = action.payload.userName;
+      state.email = email;
+      state.firstName = firstName;
+      state.lastName = lastName;
+      state.userName = userName;
 
-      // Stocke le token uniquement s’il n’est pas déjà présent et que rememberMe est 'true'
-      const { rememberMe, token } = action.payload;
+      // Stocke le token dans le bon stockage selon le choix utilisateur
       if (rememberMe) {
         localStorage.setItem("token", token);
-        localStorage.setItem("rememberMe", "true");
+      } else {
+        sessionStorage.setItem("token", token);
       }
-      state.token = action.payload.token;
     },
 
     // Connexion échouée : enregistrement de l'erreur
@@ -50,22 +52,19 @@ const authSlice = createSlice({
       state.user = null;
       state.token = null;
       state.error = null;
-      localStorage.removeItem("token");
       state.isAuthenticated = false;
+      sessionStorage.removeItem("token");
+      localStorage.removeItem("token");
     },
 
-    // Vérifie la présence d’un token local pour restaurer l’état d’auth
-    checkLocalStorageToken: (state) => {
-      const rememberMe = localStorage.getItem("rememberMe") === "true";
-      const token = localStorage.getItem("token");
+    // Vérifie la présence d'un token dans le stockage navigateur et met à jour le statut d'authentification dans le store
+    checkStoredToken: (state) => {
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
 
-      if (rememberMe && token) {
+      if (token) {
         state.token = token;
         state.isAuthenticated = true;
       } else {
-        // Nettoyage si un token est présent mais que rememberMe est false
-        localStorage.removeItem("token");
-        localStorage.removeItem("rememberMe");
         state.token = null;
         state.isAuthenticated = false;
       }
@@ -93,7 +92,7 @@ export const {
   loginSuccess,
   loginFailure,
   logout,
-  checkLocalStorageToken,
+  checkStoredToken,
   showEditUserName,
   hideEditUserName,
   editSuccess,

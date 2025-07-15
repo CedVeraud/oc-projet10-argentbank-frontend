@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
-import Styles from "./error.module.scss";
-function ErrorPage() {
+import Styles from "./Error404.module.scss";
+function Error404() {
   return (
     <main className={Styles.errorpage}>
       <div className={Styles.errorpage_content}>
@@ -16,4 +16,4 @@ function ErrorPage() {
   );
 }
 
-export default ErrorPage
+export default Error404

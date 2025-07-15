@@ -1,7 +1,7 @@
-import Hero from "../../components/hero/hero";
-import Features from "../../components/features/features";
+import Hero from "../../components/hero/Hero";
+import Features from "../../components/features/Features";
 
-import Styles from "./home.module.scss";
+import Styles from "./Home.module.scss";
 
 function Home() {
 	return (

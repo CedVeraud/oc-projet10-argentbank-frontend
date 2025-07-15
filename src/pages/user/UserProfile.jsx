@@ -1,13 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
-import { showEditUserName } from "../../redux/authSlice";
+import { showEditUserName } from "../../store/auth/authSlice";
 
 import TransactionsData from "../../data/transactions.json";
-import TransactionCard from "../../components/transactions/transactionCard";
-import EditForm from "../../components/forms/user/editUserForm";
+import TransactionCard from "../../components/transactions/TransactionCard";
+import EditForm from "../../components/forms/user/EditUserForm";
 
-import Styles from "./profile.module.scss";
+import Styles from "./UserProfile.module.scss";
 
-function Profile() {
+function UserProfile() {
   const auth = useSelector((state) => state.auth);  // récupére le state auth global depuis le store
   const showForm = useSelector((state) => state.auth.showForm); // Permet de savoir si le formulaire doit être affiché
   const dispatch = useDispatch();
@@ -32,7 +32,7 @@ function Profile() {
             <h1 tabIndex="-1">
               Welcome back
               <br />
-              {auth.userName || "Loading..."}
+              {auth.userName || "Loading..."}!
             </h1>
             <button onClick={handleSubmit} className={Styles.edit_button}>
               Edit Name
@@ -45,4 +45,4 @@ function Profile() {
   );
 }
 
-export default Profile;
+export default UserProfile;

@@ -1,4 +1,4 @@
-import Styles from "./hero.module.scss";
+import Styles from "./Hero.module.scss";
 
 function Hero({ title, subtitles, text }) {
   return (

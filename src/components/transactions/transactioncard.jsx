@@ -1,4 +1,4 @@
-import Styles from "./transactioncard.module.scss";
+import Styles from "./TransactionCard.module.scss";
 
 function TransactionCard({ transactions }) {
   return (

@@ -1,4 +1,4 @@
-import { apiFetch } from "../utils/api";
+import { apiFetch } from "../apiFetch";
 import { loginSuccess, loginFailure, editSuccess } from "./authSlice";
 
 //***/ LOGIN /***//

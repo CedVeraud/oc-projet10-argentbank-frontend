@@ -1,16 +1,29 @@
-import "./assets/style/main.module.scss";
-import Footer from "./components/layout/footer/footer";
-import Header from "./components/layout/header/header";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { profile } from "./store/auth/authActions";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoute from "./utils/privateroute/tokenIsRequired";
+import PrivateRoute from "./components/guards/PrivateRoute";
 
-import Home from "./pages/home/home";
-import ErrorPage from "./pages/error/error";
-import Login from "./pages/login/login";
-import Profile from "./pages/profile/profile";
+import Footer from "./components/layout/footer/Footer";
+import Header from "./components/layout/header/Header";
+import Home from "./pages/home/Home";
+import Error404 from "./pages/error/Error404";
+import Login from "./pages/login/Login";
+import UserProfile from "./pages/user/UserProfile";
+
+import "./assets/style/main.module.scss";
 
 function App() {
+  // Récupération des infos utilisateur au montage de l'app si token présent
+  const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (auth.token && !auth.error) {
+      dispatch(profile());
+    }
+  }, [auth, dispatch]);
+
   return (
     <>
       <Router>
@@ -18,11 +31,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<ErrorPage />} />
+          <Route path="/*" element={<Error404 />} />
           <Route path="/profile"
             element={
               <PrivateRoute>
-                <Profile />
+                <UserProfile />
               </PrivateRoute>
             }
           />

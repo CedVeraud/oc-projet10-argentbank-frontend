@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState, useRef } from "react";
 
-import { hideEditUserName } from "../../../redux/authSlice";
-import { edit } from "../../../redux/authActions";
+import { hideEditUserName } from "../../../store/auth/authSlice";
+import { edit } from "../../../store/auth/authActions";
 
-import Styles from "./edituserform.module.scss";
+import Styles from "./EditUserForm.module.scss";
 
 function EditForm() {
   const [username, setUsername] = useState("");

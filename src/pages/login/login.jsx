@@ -1,6 +1,6 @@
-import SignInForm from "../../components/forms/signin/signinForm";
+import SignInForm from "../../components/forms/signin/SignInForm";
 
-import Styles from "./login.module.scss";
+import Styles from "./Login.module.scss";
 
 function Login() {
   return (
