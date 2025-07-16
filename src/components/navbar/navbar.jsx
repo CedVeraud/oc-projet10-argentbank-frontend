@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
 import { logout, checkStoredToken } from "../../store/auth/authSlice";
+import { profile } from "../../store/auth/authActions";
 
 import Styles from "./Navbar.module.scss";
 
@@ -15,6 +16,14 @@ function NavBar() {
   useEffect(() => {
     dispatch(checkStoredToken());
   }, [dispatch]);
+
+  // Récupère les infos utilisateur si :
+  // un token est présent & aucune info userName chargée & aucune erreur d'auth
+  useEffect(() => {
+    if (auth.token && !auth.userName && !auth.error) {
+      dispatch(profile());
+    }
+  }, [auth.token, auth.userName, auth.error, dispatch]);
 
   // Fonction logout appelée au clic sur "Sign Out"
   const handleLogout = () => {

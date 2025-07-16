@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { login, profile } from "../../../store/auth/authActions";
+import { login } from "../../../store/auth/authActions";
 
 import Styles from "./SignInForm.module.scss";
 
@@ -26,7 +26,6 @@ function LoginForm() {
   // Effet déclenché quand le token est présent et sans erreur
   useEffect(() => {
     if (auth.token && !auth.error) {
-      dispatch(profile());  // chargement des infos utilisateur
       navigate("/profile"); // redirection après connexion réussie
     }
   }, [auth, dispatch, navigate]);

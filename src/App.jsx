@@ -1,7 +1,3 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { profile } from "./store/auth/authActions";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/guards/PrivateRoute";
 
@@ -15,15 +11,6 @@ import UserProfile from "./pages/user/UserProfile";
 import "./assets/style/main.module.scss";
 
 function App() {
-  // Récupération des infos utilisateur au montage de l'app si token présent
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  useEffect(() => {
-    if (auth.token && !auth.error) {
-      dispatch(profile());
-    }
-  }, [auth, dispatch]);
-
   return (
     <>
       <Router>
