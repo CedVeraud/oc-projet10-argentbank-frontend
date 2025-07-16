@@ -25,7 +25,7 @@ const authSlice = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
-		// Connexion réussie : enregistre uniquement le token
+		// Connexion réussie : enregistre le token et l'état de rememberMe
 		loginSuccess: (state, action) => {
 			const { token, rememberMe } = action.payload;
 
@@ -60,13 +60,17 @@ const authSlice = createSlice({
 			state.error = action.payload;
 		},
 
-		// Déconnexion
+		// Déconnexion : tout est réinitialisé
 		logout: (state) => {
 			state.user = null;
 			state.token = null;
 			state.error = null;
 			state.isAuthenticated = false;
 			state.rememberMe = false;
+			state.email = null;
+			state.firstName = null;
+			state.lastName = null;
+			state.userName = null;
 
 			sessionStorage.removeItem('token');
 			localStorage.removeItem('token');
