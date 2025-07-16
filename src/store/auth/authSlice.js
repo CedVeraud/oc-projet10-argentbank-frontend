@@ -12,6 +12,7 @@ const initialState = {
 	isAuthenticated: !!(
 		localStorage.getItem('token') || sessionStorage.getItem('token')
 	), // Déduit l'authentification
+	rememberMe: localStorage.getItem('rememberMe') === 'true',
 	email: null,
 	firstName: null,
 	lastName: null,
@@ -31,12 +32,17 @@ const authSlice = createSlice({
 			state.token = token;
 			state.error = null;
 			state.isAuthenticated = true;
+			state.rememberMe = rememberMe;
 
 			// Stocke le token dans le bon stockage selon le choix utilisateur
 			if (rememberMe) {
 				localStorage.setItem('token', token);
+				localStorage.setItem('rememberMe', 'true');
+				sessionStorage.removeItem('token');
 			} else {
 				sessionStorage.setItem('token', token);
+				localStorage.removeItem('token');
+				localStorage.setItem('rememberMe', 'false');
 			}
 		},
 
@@ -60,8 +66,11 @@ const authSlice = createSlice({
 			state.token = null;
 			state.error = null;
 			state.isAuthenticated = false;
+			state.rememberMe = false;
+
 			sessionStorage.removeItem('token');
 			localStorage.removeItem('token');
+			localStorage.removeItem('rememberMe');
 		},
 
 		// Vérifie le token stocké
@@ -71,9 +80,11 @@ const authSlice = createSlice({
 			if (token) {
 				state.token = token;
 				state.isAuthenticated = true;
+				state.rememberMe = localStorage.getItem('rememberMe') === 'true';
 			} else {
 				state.token = null;
 				state.isAuthenticated = false;
+				state.rememberMe = false;
 			}
 		},
 
