@@ -4,10 +4,12 @@ info:
   description: Contains all available API endpoints in this codebase
   version: '1.1.0'
   termsOfService: 'http://swagger.io/terms/'
+
 host: localhost:3001
 basePath: /api/v1
 schemes:
   - http
+
 paths:
   /user/login:
     post:
@@ -33,6 +35,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/signup:
     post:
       tags:
@@ -57,6 +60,7 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+
   /user/profile:
     get:
       security:
@@ -65,6 +69,8 @@ paths:
         - User Module
       summary: User Profile API
       description: API for fetching a user profile
+      produces:
+        - application/json
       responses:
         '200':
           description: User profile retrieved successfully
@@ -100,40 +106,71 @@ paths:
         '500':
           description: Internal Server Error
 
-  /user/transactions:
+  /user/accounts:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Accounts Module
+      summary: Get user accounts
+      description: Retrieve all user accounts
+      produces:
+        - application/json
+      responses:
+        '200':
+          description: Accounts retrieved successfully
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Account'
+        '401':
+          description: Unauthorized
+
+  /user/accounts/{accountId}/transactions:
     get:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Get all transactions grouped by account
-      description: Retrieve all transactions for the current month, grouped by account
+      summary: Get transactions for a specific account
+      description: Retrieve all transactions for the current month for a specific account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          type: string
+          description: Account ID
       produces:
         - application/json
       responses:
         '200':
           description: Transactions retrieved successfully
           schema:
-            $ref: '#/definitions/TransactionsGroupedResponse'
+            type: array
+            items:
+              $ref: '#/definitions/Transaction'
         '401':
           description: Unauthorized
-        '500':
-          description: Internal Server Error
+        '404':
+          description: Account not found
 
-  /user/transactions/{id}:
+  /user/accounts/{accountId}/transactions/{transactionId}:
     get:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Get transaction details
-      description: Retrieve detailed information about a specific transaction
+      summary: Get a specific transaction from an account
+      description: Retrieve detailed information about a transaction from a specific account
       parameters:
-        - name: id
+        - name: accountId
           in: path
           required: true
           type: string
-          description: Transaction ID
+        - name: transactionId
+          in: path
+          required: true
+          type: string
       produces:
         - application/json
       responses:
@@ -142,24 +179,25 @@ paths:
           schema:
             $ref: '#/definitions/Transaction'
         '404':
-          description: Transaction not found
+          description: Transaction or account not found
         '401':
           description: Unauthorized
-        '500':
-          description: Internal Server Error
     patch:
       security:
         - Bearer: []
       tags:
         - Transactions Module
-      summary: Patch transaction information
-      description: Add, modify or remove specific optional information (e.g. note or category)
+      summary: Patch transaction information in a specific account
+      description: Add, modify or remove optional fields of a transaction within an account.
       parameters:
-        - name: id
+        - name: accountId
           in: path
           required: true
           type: string
-          description: Transaction ID
+        - name: transactionId
+          in: path
+          required: true
+          type: string
         - in: body
           name: body
           required: true
@@ -171,10 +209,10 @@ paths:
           description: Transaction patched successfully
         '400':
           description: Invalid patch data
-        '404':
-          description: Transaction not found
         '401':
           description: Unauthorized
+        '404':
+          description: Transaction or Account not found
         '500':
           description: Internal Server Error
 
@@ -186,6 +224,7 @@ securityDefinitions:
 
 definitions:
   User:
+    type: object
     properties:
       email:
         type: string
@@ -202,7 +241,9 @@ definitions:
       userName:
         type: string
         description: user public name
+
   Login:
+    type: object
     properties:
       email:
         type: string
@@ -210,6 +251,7 @@ definitions:
       password:
         type: string
         description: user password
+
   ApiResponse:
     type: object
     properties:
@@ -224,31 +266,37 @@ definitions:
             type: string
           email:
             type: string
+
   LoginResponse:
     type: object
     properties:
       token:
         type: string
+
   UserProfile:
     type: object
     properties:
       userName:
         type: string
 
-  TransactionsGroupedResponse:
-    type: array
-    description: List of accounts with grouped transactions
-    items:
-      type: object
-      properties:
-        accountId:
-          type: string
-        accountName:
-          type: string
-        transactions:
-          type: array
-          items:
-            $ref: '#/definitions/Transaction'
+  Account:
+    type: object
+    properties:
+      id:
+        type: string
+        description: Account unique identifier
+      name:
+        type: string
+        description: Account name
+      type:
+        type: string
+        description: Type of account, e.g. Checking, Savings
+      balance:
+        type: number
+        description: Current balance of the account
+      currency:
+        type: string
+        description: Currency code, e.g. USD, EUR
 
   Transaction:
     type: object
@@ -280,11 +328,13 @@ definitions:
 
   TransactionPatch:
     type: object
-    description: At least one of the following fields is required
+    description: |
+      At least one of the following fields is required.
+      To remove a value, send an empty string ("").
     properties:
       category:
         type: string
-        enum: [Food, Rent, Transport, Utilities, Others]
+        enum: [Food, Rent, Transport, Utilities, Others, '']
       note:
         type: string
         maxLength: 256
