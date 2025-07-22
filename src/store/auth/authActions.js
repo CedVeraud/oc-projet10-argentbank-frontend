@@ -6,11 +6,13 @@ import {
 	profileSuccess,
 } from './authSlice';
 
-//***/ LOGIN /***//
-// Authentifie l'utilisateur et stocke le token
+import { updateStorageType } from '../store';
+
+// LOGIN
 export const login = (authInfos) => async (dispatch) => {
 	try {
-		// Requête POST pour l'authentification
+		updateStorageType(authInfos.rememberMe); // ← stockage choisi avant login
+
 		const data = await apiFetch('http://localhost:3001/api/v1/user/login', {
 			method: 'POST',
 			body: JSON.stringify({
@@ -19,7 +21,6 @@ export const login = (authInfos) => async (dispatch) => {
 			}),
 		});
 
-		// Si succès : on déclenche l'action loginSuccess avec le token
 		dispatch(
 			loginSuccess({
 				token: data.body.token,
@@ -27,8 +28,6 @@ export const login = (authInfos) => async (dispatch) => {
 			})
 		);
 	} catch (error) {
-		// En cas d'erreur : log console + action loginFailure avec message d'erreur
-		console.error(error.message);
 		dispatch(loginFailure(error.message));
 	}
 };
